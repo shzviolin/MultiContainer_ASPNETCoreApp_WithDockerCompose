@@ -7,4 +7,29 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Text</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Joke != null)
+            {
+                <tr>
+                    <td>@Model.Joke.Name</td>
+                    <td>@Model.Joke.Text</td>
+                    <td>@Model.Joke.Category</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No joke available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
