@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomJoke.Web", "RandomJok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomJoke.Api", "RandomJoke.Api\RandomJoke.Api.csproj", "{9185A669-1C15-4888-92DD-40C5F2904344}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7492BAB8-BE3B-477C-A925-7EACEF92CF4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9185A669-1C15-4888-92DD-40C5F2904344}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9185A669-1C15-4888-92DD-40C5F2904344}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9185A669-1C15-4888-92DD-40C5F2904344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7492BAB8-BE3B-477C-A925-7EACEF92CF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7492BAB8-BE3B-477C-A925-7EACEF92CF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7492BAB8-BE3B-477C-A925-7EACEF92CF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7492BAB8-BE3B-477C-A925-7EACEF92CF4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

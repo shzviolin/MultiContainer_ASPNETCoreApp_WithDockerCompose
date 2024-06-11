@@ -1,0 +1,54 @@
+# This line specifies the version of the Docker Compose file format being used.
+# The version number is important because it determines the features and syntax that can be used in the Docker Compose file.
+version: '3.4'
+
+# The services block is where you define the different containers or services that make up your application.
+# Each service is defined as a key-value pair, where the key is the name of the service, and the value is the configuration for that service.
+services:
+  # In this example, the service name is randomjoke.web.
+  # This is the name you will use to reference this service when running Docker Compose commands.
+  randomjoke.web:
+    # This line specifies the Docker image that should be used for the randomjoke.web service.
+    # The value ${DOCKER_REGISTRY-}randomjokeweb is using an environment variable DOCKER_REGISTRY to specify the Docker registry where the image is located.
+    # If the DOCKER_REGISTRY environment variable is not set, the default value - will be used, which means the image will be pulled from the default Docker registry (Docker Hub).
+    image: ${DOCKER_REGISTRY-}randomjokeweb
+    # The build section specifies how the Docker image for the randomjoke.web service should be built.
+    build:
+      # This line tells Docker Compose to use the current directory as the build context.
+      context: .
+      # This line specifies the location of the Dockerfile within the build context.
+      dockerfile: RandomJoke.Web/Dockerfile
+    # We specified 2 docker container ports that will be exposed. 
+    # Ports are expose in the form of host port:container port. So, we exposed port no 9001 for https and 9000 for http.
+    ports:
+      - "9000:8080"
+      - "9001:8081"
+    # we specified 5 environment variables to specify development environment, urls, https port, ssl certificate password, and ssl path. 
+    # These will be used by the ASP.NET Core docker app.
+    # the port 9001 is specified for the https type url of the container running the app.
+    # We specified the ssl certificate password as “mypass123”. We will generate this certificate with this password in just a moment.
+    # with the environment variable ASPNETCORE_Kestrel__Certificates__Default__Path,
+    # we specified the path in the container where the ssl certificate will be mounted. This path is /https/aspnetapp.pfx.
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_HTTPS_PORT=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    # Docker Volume, where we have specified how we are going to mount the SSL Certificate to the container.
+    # Here we are saying that the certificate location is on the drive location randomjoke.web/https/aspnetapp.pfx.
+    # From here it will mount to the docker container.
+    # The “.” In the beginning tells that the path starts from the directory of the docker-compose.yml file.
+    # So this means “randomjoke.web” directory is on the same directory where docker-compose.yml file is kept.
+    # The second path defines the path on the container where this ssl certificate will mount to. This path is /https/aspnetapp.pfx.
+    volumes:
+        - ./randomjoke.web/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+
+
+
+  randomjoke.api:
+    image: ${DOCKER_REGISTRY-}randomjokeapi
+    build:
+      context: .
+      dockerfile: RandomJoke.Api/Dockerfile
+
